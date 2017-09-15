@@ -1,0 +1,55 @@
+USE [StrikeforceDB]
+GO
+
+/****** Object:  StoredProcedure [at].[deleteSubjectVisit]    Script Date: 5/26/2016 6:49:19 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+ALTER proc [at].[deleteSubjectVisit]
+@screeningName nvarchar(20),
+@visitName nvarchar(20)
+
+as
+BEGIN
+    SET NOCOUNT ON;
+DECLARE @TempSubjectVisit TABLE
+(
+   SubjectVisitId uniqueidentifier,
+   SubjectVisitTaskId uniqueidentifier,
+   SubjectVisitFormInstanceId uniqueidentifier
+);
+
+INSERT INTO
+    @TempSubjectVisit
+SELECT  sv.SubjectVisitID
+			,svt.SubjectVisitTaskID
+			,SubjectVisitFormInstanceID
+			FROM subject AS s
+			left JOIN subjectVisit AS sv ON sv.SubjectID = s.SubjectID
+			left JOIN SubjectVisitTask AS svt ON svt.SubjectVisitID = sv.SubjectVisitID
+			left JOIN SubjectVisitFormInstance AS svfi ON svt.SubjectVisitID = svfi.SubjectVisitID
+			left JOIN StudyVisit AS stv ON stv.StudyVisitID = sv.StudyVisitID
+			WHERE s.ScreeningNumber = @screeningName
+			and case when stv.Number is null then stv.Name else+stv.Name+' '+cast(stv.Number as varchar) end=@visitName;
+begin tran
+
+DELETE FROM SubjectVisitFormInstance WHERE SubjectVisitFormInstanceID IN (SELECT DISTINCT SubjectVisitFormInstanceID from @TempSubjectVisit)
+DELETE FROM SubjectVisitTask WHERE SubjectVisitTaskID IN (SELECT DISTINCT SubjectVisitTaskID from @TempSubjectVisit)
+DELETE FROM SubjectVisit WHERE SubjectVisitID IN (SELECT DISTINCT SubjectVisitID from @TempSubjectVisit)
+
+commit tran
+end
+
+
+
+
+GO
+
+

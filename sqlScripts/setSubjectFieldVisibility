@@ -1,0 +1,43 @@
+USE [StrikeForceDB]
+GO
+
+/****** Object:  StoredProcedure [at].[setSubjectFieldVisibility]    Script Date: 3/16/2016 9:58:18 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+/****** Script for SelectTopNRows command from SSMS  ******/
+CREATE PROC [at].[setSubjectFieldVisibility]
+@fieldName nvarchar (50) = null,
+@studyName nvarchar (40) = null,
+@userId nvarchar (20) = null
+
+as
+BEGIN
+
+DECLARE @studyID uniqueidentifier
+	   ,@personID uniqueidentifier
+	   ,@subjectFieldId uniqueidentifier
+
+select @studyID = StudyID FROM [Study] WHERE [Name]=@studyName
+select @personID = personID FROM [Person] WHERE [ADUserID]=@userId
+select @subjectFieldId = subjectFieldId FROM [SubjectField] WHERE [Name]=@fieldName
+
+IF @fieldName is NULL and @studyName is NULL and @userId is NULL
+DELETE FROM [StudySubjectField];
+
+ELSE
+INSERT INTO [StudySubjectField] VALUES (NEWID(),@subjectFieldId,@studyID,CURRENT_TIMESTAMP,@personID)
+
+ END
+
+
+
+
+GO

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <context:property-placeholder
+            location="classpath*:*smoke_${envTarget}.properties"/>
+
+    <bean id="urls" class="mt.siteportal.utils.data.URLsHolder">
+        <property name="hostUrl" value="${host.url}"/>
+        <property name="baseUrl" value="${baseURL}"/>
+        <property name="pageLogin" value="${page.login}"/>
+        <property name="pageHome" value="${page.home}"/>
+        <property name="pageAbout" value="${page.about}"/>
+        <property name="pageStudyDashboard" value="${page.studyDashboard}"/>
+        
+        <property name="siteportalURL" value="${siteportal.url}"/>
+        <property name="maportalURL" value="${maportal.url}"/>
+        <property name="sponsorportalURL" value="${sponsorportal.url}"/>
+        
+        <property name="studyDashboardRouteURL" value="${studydashboard.route.url}"/>
+    </bean>
+
+    <bean id="data" class="mt.siteportal.utils.data.DataHolder">
+    	<property name="adminName" value="${mt.user.admin.name}"/>
+        <property name="adminAccountName" value="${mt.user.admin.account.name}"/>
+        <property name="adminAccountPassword" value="${mt.user.admin.account.password}"></property>
+        
+        <property name="userName" value="${mt.user.site.name}"></property>
+        <property name="userPassword" value="${mt.user.site.password}"></property>
+        
+        <property name="siteportalUserName" value="${siteportal.user.name}"/>
+        <property name="siteportalUserAccountName" value="${siteportal.user.account.name}"></property>
+        <property name="siteportalUserAccountPassword" value="${siteportal.user.account.password}"></property>
+        
+        <property name="maportalUserName" value="${maportal.user.name}"/>
+        <property name="maportalUserAccountName" value="${maportal.user.account.name}"></property>
+        <property name="maportalUserAccountPassword" value="${maportal.user.account.password}"></property>
+        
+        <property name="environmentName" value="${deployment.environment}"/>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+     	<property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+</beans>

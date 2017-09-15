@@ -1,0 +1,37 @@
+USE [StrikeForceDB]
+GO
+
+/****** Object:  StoredProcedure [at].[deleteSubjectObserver]    Script Date: 3/16/2016 9:57:33 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+Create proc [at].[deleteSubjectObserver]
+@screeningName nvarchar(20),
+@relation nvarchar(50),
+@alias nvarchar(50)
+
+as
+BEGIN
+    SET NOCOUNT ON;
+DECLARE @SubjectID uniqueidentifier
+
+select @SubjectID = SubjectID FROM [Subject] WHERE [ScreeningNumber]=@screeningName
+begin tran
+
+DELETE FROM SubjectObserver WHERE SubjectID = @SubjectID
+			and Relation = @relation
+			and Alias = @alias
+commit tran
+end
+
+
+
+
+GO

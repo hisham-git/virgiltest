@@ -1,0 +1,91 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:'2.53.1'
+	compile group: 'org.testng', name: 'testng', version:'6.9.13.6'
+    compile group: 'org.springframework', name: 'spring-core', version:'3.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version:'3.2.3.RELEASE'
+    compile(group: 'org.dbunit', name: 'dbunit', version:'2.4.9') {
+		exclude(module: 'slf4j-nop')
+    }
+    compile group: 'joda-time', name: 'joda-time', version:'2.9.7'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.5.6'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.15'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version:'1.2.2'
+    compile group: 'org.jdom', name: 'jdom', version:'2.0.2'
+    compile group: 'org.apache.poi', name: 'poi', version:'3.12'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version:'3.10.1'
+    compile group: 'xml-apis', name: 'xml-apis', version:'1.4.01'
+    compile(group: 'ru.yandex.qatools.allure', name: 'allure-testng-adaptor', version:'1.4.20') {
+		exclude(module: 'testng')
+    }
+    compile group: 'org.aspectj', name: 'aspectjweaver', version:'1.8.8'
+    testCompile(group: 'org.uncommons', name: 'reportng', version:'1.1.2') {
+		exclude(module: 'testng')
+    }
+    compile group: 'com.aventstack', name: 'extentreports', version:'3.0.4'
+    compile group: 'com.microsoft.ews-java-api', name: 'ews-java-api', version:'2.0'
+    testCompile group: 'com.google.inject', name: 'guice', version:'3.0'
+    runtime files('lib/sqljdbc4.jar')
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.0.6'
+}
+
+task runAt( type: Test ) {
+	useTestNG() {
+		systemProperty 'envTarget', 'at'
+  		options.suites("testng-at.xml")
+  		preserveOrder = true
+  	}
+  	
+	ignoreFailures = true
+	scanForTestClasses = true
+	
+	options {
+		listeners << 'org.testng.reporters.EmailableReporter'
+		listeners << 'org.testng.reporters.XMLReporter'
+		listeners << 'ru.yandex.qatools.allure.testng.AllureTestListener'
+	}
+}
+
+task runStg( type: Test ) {
+	useTestNG() {
+		systemProperty 'envTarget', 'stg'
+  		options.suites("testng-stg.xml")
+  		preserveOrder = true
+  	}
+  	
+	ignoreFailures = true
+	scanForTestClasses = true
+	
+	options {
+		listeners << 'org.testng.reporters.EmailableReporter'
+		listeners << 'org.testng.reporters.XMLReporter'
+		listeners << 'ru.yandex.qatools.allure.testng.AllureTestListener'
+	}
+}
+
+task runTest( type: Test ) {
+  useTestNG() {
+		systemProperty 'envTarget', 'test'
+  		options.suites("testng-failed.xml")
+  		preserveOrder = true
+  	}
+  	
+	ignoreFailures = true
+	scanForTestClasses = true
+	
+	options {
+		listeners << 'org.testng.reporters.EmailableReporter'
+		listeners << 'org.testng.reporters.XMLReporter'
+		listeners << 'ru.yandex.qatools.allure.testng.AllureTestListener'
+	}
+}
+
+task runAll( dependsOn: [runAt, runStg, runTest] ) {
+}

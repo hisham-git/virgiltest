@@ -1,0 +1,23 @@
+# /
+/out
+/test-output
+/target
+/.gradle
+/build
+/Pdf-output
+/lib
+
+test.xml
+testsuite.txt
+*.log
+*.iml
+*.ipr
+*.iws
+.idea/
+.classpath
+.project
+/bin/
+*.prefs
+/testng-gradle.xml
+src/test/java/tests/AssessmentDetails/NavigationTests_old.java
+src/test/java/tests/AssessmentDetails/ScoreDataValidationTests_old.java

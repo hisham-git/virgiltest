@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Virgil Automation Groups Test Suite" preserve-order="true">
+	<parameter name="browser" value="chrome"></parameter>
+	<listeners>
+		<!-- <listener class-name="mt.siteportal.utils.tools.ExtentReporterNG" /> -->
+		<listener class-name="ru.yandex.qatools.allure.testng.AllureTestListener" />
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+	</listeners>
+	
+	<!-- Start: MultiEnvironment tests -->
+	
+	<test name="Browser Compatibility Test">
+	<parameter name="ffbrowser" value="firefox"></parameter>
+		<groups>
+			<run>
+				<include name="BrowserCompatibility" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.BrowserCompatibility" />
+		</packages>
+	</test>
+	
+	<test name="Primary Address Groups Test" group-by-instances="true"
+		parallel="classes">
+		<groups>
+			<run>
+				<include name="PrimaryAddress" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.PrimaryAddress" />
+		</packages>
+	</test>
+	
+	<test name="CR Appointment Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="CentralRating" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.CentralRating" />
+		</packages>
+	</test>
+	
+	<test name="CR VisitList Groups Test">
+		<groups>
+			<run>
+				<include name="CrVisitList" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.CrVisitList" />
+		</packages>
+	</test>
+	
+	<test name="Self CR Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="CentralRatingSelf" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.CentralRatingSelf" />
+		</packages>
+	</test>
+	
+	<!-- <test name="SubjectVisitAttachment Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="SubjectVisitAttachment" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.SubjectVisitAttachment" />
+		</packages>
+	</test> -->
+	
+	<!-- Requires E-Sign -->	
+	<!-- <test name="PaperTranscription Groups Test" group-by-instances="true"
+		parallel="methods">
+		<groups>
+			<run>
+				<include name="PaperTranscription" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.PaperTranscription" />
+		</packages>
+	</test> -->
+			
+	<!-- Requires E-Sign -->
+	<test name="Subject Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="Subject" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.Subject" />
+		</packages>
+	</test>
+	
+	<!-- Requires E-Sign -->
+	<test name="SubjectFields Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="SubjectFields" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.SubjectFields" />
+		</packages>
+	</test>
+
+	<!-- Requires E-Sign -->
+	<test name="SubjectForms Groups Test"
+		group-by-instances="true">
+		<groups>
+			<run>
+				<include name="SubjectForms" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.SubjectForms" />
+		</packages>
+	</test>
+
+	<!-- Requires E-Sign -->
+	<test name="SubjectStatus Groups Test">
+		<groups>
+			<run>
+				<include name="SubjectStatus" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.SubjectStatus" />
+
+		</packages>
+	</test>
+
+	<!-- Requires E-Sign -->
+	<test name="SubjectVisit Groups Test">
+		<groups>
+			<run>
+				<include name="SubjectVisit" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.SubjectVisit" />
+		</packages>
+	</test>
+
+	<!-- <test name="Observer Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="Observer" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.Observer" />
+		</packages>
+	</test> -->
+
+	<!-- Requires E-Sign -->
+	<!-- <test name="Assessment Groups Test">
+		<groups>
+			<run>
+				<include name="Assessment" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.Assessment" />
+		</packages>
+	</test> -->
+	
+	<!-- <test name="StudyProfile Groups Test">
+		<groups>
+			<run>
+				<include name="StudyProfile" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.StudyProfile" />
+		</packages>
+	</test> -->
+	
+	<!-- <test name="StudyRaters Groups Test">
+		<groups>
+			<run>
+				
+				<include name="StudyRaters" />
+			</run>
+		</groups>
+		<packages>
+	
+			<package name="tests.StudyRaters" />
+		</packages>
+	</test> -->
+
+	<!-- <test name="Filters Groups Test">
+		<groups>
+			<run>
+				<include name="DashboardFiltersAvailability" />
+				<include name="FilteringLists" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.Filters" />
+		</packages>
+	</test> -->
+	
+	<!-- <test name="StudyDashboardLists Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="StudyDashboardLists" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.StudyDashboardLists" />
+		</packages>
+	</test> -->
+
+	<test name="StudyDashboard Groups Test">
+		<groups>
+			<run>
+				<include name="StudyDashboard" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.StudyDashboard" />
+		</packages>
+	</test>
+	
+	<!-- Requires E-Sign -->
+	<!-- <test name="AssessmentDetails Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="Attachment" />
+				<include name="Audio" />
+				<include name="BreadcrumbNavigation" />
+				<include name="Controls" />
+				<include name="DataValidation" />
+				<include name="EditDetails" />
+				<include name="EsignEyeCharacters" />
+				<include name="General" />
+				<include name="HeaderLink" />
+				<include name="Navigation" />
+				<include name="ScoreDataValidation" />
+				<include name="ViewMode" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.AssessmentDetails" />
+		</packages>
+	</test> -->
+
+	<test name="Common Groups Test">
+		<groups>
+			<run>
+				<include name="Common" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.Common" />
+		</packages>
+	</test>
+
+	<!-- <test name="Breadcrumbs Groups Test">
+		<groups>
+			<run>
+				<include name="Breadcrumbs" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.Breadcrumbs" />
+		</packages>
+	</test> -->
+	
+	<!-- <test name="Queries Groups Test" group-by-instances="true">
+		<groups>
+			<run>
+				<include name="QueriesPanelControls" />
+				<include name="QueriesPanelSorting" />
+				<include name="QueriesPanelFilters" />
+				
+				<include name="QueryItemReplyAndHyperlink" />
+				<include name="QueryItemQueryHistory" />
+				<include name="QueryItemQueryAdd" />
+				<include name="QueryItemQueryEdit" />
+				<include name="QueryItemQueryDelete" />
+				<include name="QueryItemQueryClose" />
+						
+				<include name="QueryCategoryContext" />
+				<include name="QuerySiteContext" />
+				<include name="QueryCategoryContextPanel" />
+			</run>
+		</groups>
+		<packages>
+			<package name="tests.Queries" />
+		</packages>
+	</test> -->
+	<!-- End: MultiEnvironment tests -->
+	
+	<!-- Start: TEST Environment tests -->	
+	<!-- End: TEST Environment tests -->
+		
+</suite> <!-- Suite -->
